@@ -119,7 +119,7 @@ docker run -it -p 8080:8080 <your-image-name>
 ### Call API
 URL template : *http://0.0.0.0:8080/recommend?uid={user_id}*
 
-example : *http://0.0.0.0:8080/recommend?uid=FAKE_USER_ID*
+example : *http://0.0.0.0:8080/recommend?uid=USER_ID*
 
 more info : *http://0.0.0.0:8080/docs*
 
