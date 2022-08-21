@@ -2,8 +2,8 @@ import argparse
 import os
 import pandas as pd
 import surprise
-from surprise import Reader, Dataset, SVD, dump, accuracy
-from surprise.model_selection import  GridSearchCV, train_test_split
+from surprise import Reader, Dataset, SVD, dump
+from surprise.model_selection import  GridSearchCV
 import numpy as np
 import json
 from datetime import datetime
@@ -82,12 +82,6 @@ def gridsearch(
                         'lr_all': [0.001, 0.002, 0.005, 0.01],
                         'reg_all':[0.02, 0.1, 0.4]
                     }
-
-    # svd_param_grid = {'n_factors': [5],
-    #                     'n_epochs': [5],       
-    #                     'lr_all': [0.001],
-    #                     'reg_all':[0.02]
-    #                 }
 
     gs = GridSearchCV(model, svd_param_grid, measures=['rmse'], cv=5)
     gs.fit(data)
@@ -296,3 +290,5 @@ if __name__ == '__main__':
     end_time = datetime.now()
     print(f'\nEnd Time:', end_time)
     print(f'Duration: {end_time - start_time}\n')
+
+# EOF
