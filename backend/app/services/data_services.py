@@ -67,7 +67,13 @@ class DataService:
 
 
 if __name__ == "__main__":
+    file_dir = os.path.dirname(os.path.realpath(__file__))
+    os.chdir(file_dir)
+    os.chdir('..')
+    data_path = os.path.join(os.getcwd(), 'transaction')
+
     ds = DataService()
+    ds.create_pd_df(data_path)
     res_id = ds.get_restaurant_id_list()
     print(len(res_id))
     print(res_id[:5])

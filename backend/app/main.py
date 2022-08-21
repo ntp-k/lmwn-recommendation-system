@@ -4,9 +4,6 @@ from app.services.ml_services import MLServices
 
 app = FastAPI()
 user_recom_list = dict()
-app.total_req = 0
-app.new_user_req = 0
-app.cache_hit_req = 0
 
 data_services = DataService()
 app.restaurant_id_list = data_services.get_restaurant_id_list()
@@ -15,6 +12,7 @@ app.top_10_hot_restaurant_id_list = data_services.get_top_n_restaurant_id(10)
 
 app.ml_services = MLServices()
 app.ml_services.load_model()
+
 
 def is_first_time_user(
         uid
@@ -26,21 +24,17 @@ def is_first_time_user(
         return True
 
 
-
-@app.get("/recommend/{uid}")
+@app.get("/recommend")
 def get_recommendation_by_uid(uid: str):
-    app.total_req += 1
     recommended_list = []
     first_time_user = is_first_time_user(uid)
 
     if first_time_user:
         recommended_list = app.top_10_hot_restaurant_id_list
-        app.new_user_req += 1
     else:
         # check for cache
         if uid in user_recom_list:
             recommended_list = user_recom_list[uid]
-            app.cache_hit_req += 1
         else:
             recommended_list = app.ml_services.predict_recommendation_list_by_uid(n=10, 
                                                                                 user_id=uid, 
@@ -48,7 +42,6 @@ def get_recommendation_by_uid(uid: str):
                                                                                 )
             user_recom_list[uid] = recommended_list        
 
-    print(f'total req: {app.total_req}   new user req: {int(app.new_user_req/app.total_req*100)}%   cache hit req: {int(app.cache_hit_req/app.total_req*100)}%')
     return {"uid": uid, "new_user": first_time_user, "rid_lsit": recommended_list}
 
 
