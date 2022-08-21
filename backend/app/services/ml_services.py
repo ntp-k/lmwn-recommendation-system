@@ -1,6 +1,8 @@
 from surprise import dump
 import os
 import pandas as pd
+from data_services import DataService
+import random
 
 
 def get_model_dir():
@@ -41,6 +43,7 @@ class MLServices:
         self.pred = pred
         self.model = loaded_model
 
+
     def predict(
             self,
             user_id,
@@ -53,7 +56,8 @@ class MLServices:
         predict_result = self.model.predict(user_id, restaurant_id)
 
         return predict_result
-    
+
+
     def predict_recommendation_list_by_uid(
             self,
             n,
@@ -85,6 +89,21 @@ if __name__ == "__main__":
     ml_service = MLServices(os.getcwd())
     ml_service.load_model()
     result = ml_service.predict('E151D9B3FF92D3CA', '214F1363DB7E2B01')
-    print(result)
+    print('test prediction:', result)
 
+    data_services = DataService()
+    os.chdir('..')
+    data_path = os.path.join(os.getcwd(), 'transaction')
+    data_services.create_pd_df(data_path)
+    user_id_list = data_services.get_user_id_list()
+    restaurant_id_list = data_services.get_restaurant_id_list()
+    print('len restaurant:', len(restaurant_id_list))
+    print('ex restaurant:', restaurant_id_list[:3])
+
+    recommend_list = ml_service.predict_recommendation_list_by_uid(
+                                                                    n = 10,
+                                                                    user_id = random.choice(user_id_list),
+                                                                    restaurant_id_list = restaurant_id_list
+                                                                )
+    print('reccomend res:', recommend_list)
 # EOF
