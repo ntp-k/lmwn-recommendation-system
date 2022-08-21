@@ -117,11 +117,11 @@ docker run -it -p 8080:8080 <your-image-name>
 <br/>
 
 ### Call API
-URL template : *localhost:8080/recommend?uid={user_id}*
+URL template : *http://0.0.0.0:8080/recommend?uid={user_id}*
 
-example : [localhost:8080/recommend?uid=FAKE_USER_ID](localhost:8080/recommend?uid=FAKE_USER_ID)
+example : *http://0.0.0.0:8080/recommend?uid=FAKE_USER_ID*
 
-more info : [swagger](localhost:8080/docs)
+more info : *http://0.0.0.0:8080/docs*
 
 **note** for user_id that is not exist in the given transaction data, I assume that this user_id is the new user, therefore the system will recommend top 10 hot restaurants instead of user preference. 
 
