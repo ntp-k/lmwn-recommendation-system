@@ -10,12 +10,18 @@ class DataService:
         self.path_to_data = path_to_data
         self.df = None
 
-    def create_pd_df(self):
-        df = None
+    def create_pd_df(
+            self,
+            path_to_data = None
+        ):
 
-        if os.path.isfile(self.path_to_data):
+        df = None
+        if path_to_data is None:
+            path_to_data = self.path_to_data
+
+        if os.path.isfile(path_to_data):
             try:
-                df = pd.read_csv(self.path_to_data)
+                df = pd.read_csv(path_to_data)
             except Exception as e:
                 print('Error:', e)
 
