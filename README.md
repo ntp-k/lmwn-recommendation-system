@@ -123,7 +123,7 @@ example : *http://0.0.0.0:8080/recommend?uid=USER_ID*
 
 more info : *http://0.0.0.0:8080/docs*
 
-**note** for user_id that is not exist in the given transaction data, I assume that this user_id is the new user, therefore the system will recommend top 10 hot restaurants instead of user preference. 
+**note** for user_id that does not exist in the given transaction data, I assumed that this user_id is the new user, therefore the system will recommend top 10 hot restaurants instead of user preference. 
 
 <br/><br/>
 
