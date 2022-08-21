@@ -271,9 +271,9 @@ if __name__ == '__main__':
     ap.add_argument("-data", "--path_to_data", type=str, default=path_to_data,
                     help="path to training data (.csv) ex: /home/user/assignment/data.csv")
     ap.add_argument("-params", "--path_to_model_params", type=str, default='',
-                    help="path to model parameters (.json) ex: /home/user/assignment/models/model_params.json")
+                    help="path to model parameters (.json) ex: /home/user/Downloaded/model_params.json")
     ap.add_argument("-dir", "--output_directory", type=str, default=saved_model_dir,
-                    help="directory that model will be saved at ex: /home/user/assignment/models")
+                    help="directory that model will be saved at ex: /home/user/assignment/weight")
     ap.add_argument("-model", "--output_model_name", type=str, default=model_name,
                     help="name of output model (.pickle) ex: model.pickle")
     config = vars(ap.parse_args())
